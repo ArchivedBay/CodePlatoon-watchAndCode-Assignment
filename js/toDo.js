@@ -5,13 +5,15 @@ let toDoList = [];
 
 // after that, we need a way to add a new item to the to do list. We can do that via a function as well, addItem();
 function displayItems(list){ //take our toDoList array as an argument.
-  return console.log(list);
+  return list;
 }
 function addItem(item){ //let it take an argument that is the item as a string.
-  return toDoList.push(item);
+  toDoList.push(item);
+  return displayItems(toDoList); //note, this is just for testing purposes, you could just return toDoList instead.
 }
 function changeItem(n, input){ //take two arguments: the index to modify, and the new input.
-  return toDoList[n] = input;
+  toDoList[n] = input;
+  return displayItems(toDoList); //same as above, this is just for testing. you can just return toDoList, like we did below.
 }
 function removeItem(n){ //one argument: starting index of splice.
   toDoList.splice(n, 1);
