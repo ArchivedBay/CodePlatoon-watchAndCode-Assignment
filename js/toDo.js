@@ -1,31 +1,36 @@
-// create a variable to hold the list items for our to do list. could use an object, but lab calls for an array
+//the following isn't really part of the lab, I was just trying to see if I could go about things a different way.
 let toDoList = [];
 
-// then we need a way to display the items in that list. let's call that function displayItem();
-
-// after that, we need a way to add a new item to the to do list. We can do that via a function as well, addItem();
-function displayItems(list){ //take our toDoList array as an argument.
-  return list;
+function modifyList(action,input,index){ //the first argument is required, the other two are optional depending on the action
+  if(action === 'add'){
+    if(input === undefined || input === ' '){ //if our 'add' action isn't followed by a proper 'input' (only looking for null/space
+     return alert('please enter an item to add to the list!'); 
+    }else{
+      toDoList.push(input);
+      return toDoList;
+    }
+  }else if(action === 'change'){
+    if(input === undefined || input === ' '){ //check input again
+      return alert('please enter a proper change to the list!'); 
+    }else if(index < 0 || index > toDoList.length-1 || index === undefined){ //also check to make sure an index was specified
+      return alert(`invalid item, please enter a number between 0 and ${toDoList.length-1}`); 
+    }else{ 
+      toDoList[index] = input;
+      return toDoList;
+    }
+  }else if(action === 'remove'){
+    if(typeof input === 'number'){ //if they don't specify a second argument & enter a number, treat it like the index.
+      index = input; //set the index to be that number
+      input = undefined; //and set input to be undefined.
+    }
+    if(index === undefined){ //basically if they didn't enter a correct number or else entered only the first argument
+      return alert(`Unable to remove, please specify an integer value.`); //since splice() already has (< 0) and (>.array.length) results
+    }else{  
+      toDoList.splice(index, 1); //else if there's an index, pass it to splice.
+      return toDoList;
+    }
+  }
 }
-function addItem(item){ //let it take an argument that is the item as a string.
-  toDoList.push(item);
-  return displayItems(toDoList); //note, this is just for testing purposes, you could just return toDoList instead.
-}
-function changeItem(n, input){ //take two arguments: the index to modify, and the new input.
-  toDoList[n] = input;
-  return displayItems(toDoList); //same as above, this is just for testing. you can just return toDoList, like we did below.
-}
-function removeItem(n){ //one argument: starting index of splice.
-  toDoList.splice(n, 1);
-  return toDoList;
-}
 
-
-//now if we want to edit a pre-existing item on the list, we can do this simply changing the array index itself,
-//which we can put in another function for usability later. changeItem();
-//changeItem(2, 'flowers'); would change the 3rd item in the array.
-
-//finally, in v1.0 we want to add a way to delete an item. We can do this via splice in a function as well. removeItem();
-//removeItem(1,1); would remove only the second item.
 
 
