@@ -2,23 +2,29 @@
 let toDoList = {
   list: [],
   displayItems: function(list){
-   return list; 
+    return this.list; 
   },
-  addItem: function(item){
-   this.list.push(item);
+  addItem: function(itemText){ //instead of pushing text, push an object instead
+   this.list.push({
+    textValue: itemText,
+    completed: false
+   });
    return this.list;
   },
-  changeItem: function(n, input){
-   this.list[n] = input;
+  changeItem: function(n, newItemText){
+   this.list[n].textValue = newItemText;
    return this.list;
   },
   removeItem: function(n){
     this.list.splice(n, 1);
     return this.list;
+  },
+  toggleCompleted: function(n){
+    let booli = this.list[n]; //set to a var for easier access below.
+    booli.completed = !booli.completed;
+    return this.list;
   }
 };
-
-// toDoList.addItem('plant tree'); would add 'plant tree' to the list
 
 
 
