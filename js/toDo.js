@@ -1,9 +1,7 @@
-/*  V5 Reqs: 
-  displayItems should show toDoList.textValue
-  displayItems should tell you if your toDoList is empty
-  displayItems should show you .completed.
+/*  V6 Reqs: 
+  it should have a method, toggleAll(), that if all items are true, makes them false
+  otherwise make them all true.
 */
-
 let toDoList = {
   list: [],
   displayItems: function(){
@@ -31,26 +29,28 @@ let toDoList = {
     this.list.splice(n, 1);
     return this.list;
   },
-  toggleCompleted: function(n){
-    let booli = this.list[n]; //set to a var for easier access below.
-    booli.completed = !booli.completed;
+  toggleCompleted: function(n){ //take an index as an argument
+    let toDoItem = this.list[n]; //set to a var for easier access below.
+    toDoItem.completed = !toDoItem.completed; //flip it
   },
   toggleAll: function(){
-    for(let i = 0, count = 0 i < this.list.length; i++){ //for each item in the list
-      if(this.list[i].completed === true){ // if current item is completed, increase count
-       count++; 
+    let count = 0;
+    let length = this.list.length;
+    for(let a = 0; a < length; a++){
+      if(this.list[a].completed === true){ // if current item is complete, increase count
+        count++;
       }
     }
-    if(count === this.list.length){ // if all items are completed
-      for(let i = 0; i < this.list.length; i++){
-        this.toggleCompleted[i]; // make them all false
+    if(count === length){ // if they're all complete
+      for(let b = 0; b < length; b++){
+       this.toggleCompleted(b); // make them all incomplete
       }
     }else{
-     for(let i = 0; i < this.list.length; i++){ // otherwise if ANY are not (since count !== this.list.length)
-        this.list[i].completed = true; // make them all true
-     }
+      for(let c = 0; c < length; c++){
+        this.list[c].completed = true; //otherwise make them all complete;
+      }
     }
-  }
+  }//end function
 };
 
 
