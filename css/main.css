@@ -1,1 +1,27 @@
+body{
+  background-color: #555;
+}
+.container{
+  text-align: center;
+  width: 50%;
+  background-color: #cecece;
+}
+#newItem{
+  border-bottom: 1px solid #333;
+}
+.itemList{
+  text-align: left;
+}
+.toggleBoxStyle{
+  margin-right: 50px;
+  
+}
+.entry{
+  display:inline;
+  text-align: center;
+  margin-left: 20%;
+}
+.itemEntry{
+  border-bottom: 1px solid #333;
+}
 
