@@ -1,18 +1,35 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>To Do List</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-
-
-
-
 </head>	
 <body>
-	
-
-
-
+	<div class="container"> <!-- set overall shape of todo list. set min height with no max in css. -->
+		<div id="newItem"><!-- top section of todo list w/ form and select all button and 'add' button. -->
+			<button type="submit" id="toggleAllBtn" class="selectAllStyle">Select All</button>
+			<input type="text" placeholder="Add New Task" />
+			<button type="submit" id="addItemBtn" class="AddItemStyle">Add New Item</button>
+		</div>
+		<div class="itemList">
+		  <div class="itemEntry">
+  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <p class="entry">Add new to-do Item</p>
+  		</div>
+  		<div class="itemEntry">
+  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <p class="entry">Add new to-do Item</p>
+  		</div>
+  		<div class="itemEntry">
+  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <p class="entry">Add new to-do Item</p>
+  		</div>
+  		<div class="itemEntry">
+  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <p class="entry">Add new to-do Item</p>
+  		</div>
+		</div>
+	</div>
 
 
 
