@@ -46,6 +46,7 @@ let toDoList = {
         count++;
       }
     }
+    
     if(count === length){ // if they're all complete
       for(let b = 0; b < length; b++){
        this.toggleCompleted(b); // make them all incomplete
@@ -58,6 +59,12 @@ let toDoList = {
   }//end function
 };
 
+// grab our buttons and store them in a variable then add a click listener to them. 
+let selectAll = document.getElementById('toggleAllBtn');
+let display = document.getElementById('displayItemBtn');
+
+selectAll.addEventListener('click', toDoList.toggleAll);
+display.addEventListener('click', toDoList.displayItems);
 
 
 
