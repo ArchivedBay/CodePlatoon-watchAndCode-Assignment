@@ -10,7 +10,7 @@
 let toDoList = {
   list: [],
   displayItems: function(){
-    if(this.list.length < 1){return 'Your todo list is empty!';}
+    if(this.list.length < 1){console.log('Your todo list is empty!');} //note, if you have it 'return' instead it causes issues.
     else{
         for(let i = 0; i < this.list.length; i++){
           let status; //we only use status here so we can just assign it for this block.
@@ -57,14 +57,18 @@ let toDoList = {
       }
     }
   }//end function
-};
+};//end object
 
 // grab our buttons and store them in a variable then add a click listener to them. 
-let selectAll = document.getElementById('toggleAllBtn');
-let display = document.getElementById('displayItemBtn');
+let selectAllItems = document.getElementById('toggleAllBtn');
+let displayCurrentItems = document.getElementById('displayItemBtn');
 
-selectAll.addEventListener('click', toDoList.toggleAll);
-display.addEventListener('click', toDoList.displayItems);
+selectAllItems.addEventListener('click', function(){
+  	toDoList.toggleAll();
+});
+displayCurrentItems.addEventListener('click', function(){
+	toDoList.displayItems();
+});
 
 
 
