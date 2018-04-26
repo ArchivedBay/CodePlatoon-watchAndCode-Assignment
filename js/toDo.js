@@ -1,7 +1,12 @@
-/*  V6 Reqs: 
-  it should have a method, toggleAll(), that if all items are true, makes them false
-  otherwise make them all true.
+/*  V7 Reqs: 
+  There should be a 'display items' button and a 'toggle all' button in the app.
+  clicking the display button should call toDoList.displayItems()
+  clicking the toggle all button should run toDoList.toggleAll()
+  
+  NOTE from here on, changes will start being made to index.htm as well for the actual interface.
 */
+
+
 let toDoList = {
   list: [],
   displayItems: function(){
