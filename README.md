@@ -12,10 +12,3 @@
 #	list of all/active/complete buttons
 #	if at least one item is marked complete, clear completed button at bottom right,
 #	local storage that saves state if page is refreshed
-
-#	v1 Requirements:
-#		it should - have a place to store todos - use an array called toDoList.
-#		it should - have a way to display todos
-#		it should - have a way to add new todo
-#		it should - have a way to change a todo
-#		it should - have a way to remove a todo
