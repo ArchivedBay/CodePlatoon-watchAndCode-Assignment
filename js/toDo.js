@@ -1,12 +1,10 @@
-/*  V8 Reqs: 
-  There should be a button for adding new items
-  There should be a button for deleting items
-  There should be a button for toggling items
-
-  Start refactoring to improve readability, i.e w/ event listeners
+/*  V9 Reqs: 
+  There should be an li for every item on your list
+  There should be a .textValue in every li
+  Every li should show .completed
 */
 
-//store all of our inputs for use later.
+/store all of our inputs for use later.
 let inputValue = document.querySelector('#addInput'); //grab input from 'addInput' textbox
 let newInputValue = document.querySelector('#newInputValue');
 let indexValue = document.querySelector('#indexValue');
@@ -55,7 +53,6 @@ let toDoList = {
         count++;
       }
     }
-    
     if(count === length){ // if they're all complete
       for(let b = 0; b < length; b++){
        this.toggleCompleted(b); // make them all incomplete
@@ -65,37 +62,66 @@ let toDoList = {
         this.list[c].completed = true; //otherwise make them all complete;
       }
     }
-    this.displayItems();
+    visibleOutput.displayItems(toDoList.list.length-1);
   }//end function
 };//end object
 
-/*
-note, the below is mostly used if you ONLY need to deal with click events, 
-if you need more functionality consider using addEventListener instead. **/
 
 //create handlers for 'onclick' usage to avoid having to add event listeners manually and make it neater
 let handlers = { 
-	displayItemsHandler: function(){toDoList.displayItems();},
-	toggleAllHandler: function(){toDoList.toggleAll();},
+	displayItemsHandler: function(){visibleOutput.displayItems();},
 	addItemHandler: function(){
 		toDoList.addItem(inputValue.value); //pass input to addItem()
-		inputValue.value = ''; //reset the text box
+		inputValue.value = '';
+		visibleOutput.displayItems();
 	},
 	changeItemHandler: function(){
 		toDoList.changeItem(indexValue.value, newInputValue.value);
 		indexValue.value = '';
 		newInputValue.value = '';
+		visibleOutput.displayItems();
 	},
 	removeItemHandler: function(){
 		toDoList.removeItem(indexValue.value);
 		indexValue.value = '';
+		visibleOutput.displayItems();
 	},
 	toggleItemHandler: function(){
 		toDoList.toggleCompleted(indexValue.value);
 		indexValue.value = '';
-	}
+		visibleOutput.displayItems();
+	},
+	toggleAllHandler: function(){toDoList.toggleAll();}
 };
 
+//create object for what the user sees
+let visibleOutput = {
+	displayItems: function(){
+		let itemList = document.querySelector('#itemList');
+		itemList.innerHTML = ''; // this is important! prevents doubling of items each cycle through loop
+
+		for(let i = 0; i < toDoList.list.length; i++){		 
+			let itemEntryDiv = document.createElement('div'),
+				toggleBox = document.createElement('input'),
+				newItem = document.createElement('p');
+
+			itemEntryDiv.classList.add('itemEntry');
+			toggleBox.classList.add('toggleBox');
+			newItem.classList.add('entry');
+			toggleBox.type = 'checkbox';
+
+			if(toDoList.list[i].completed === true){
+				newItem.textContent = `(x) ${toDoList.list[i].textValue}`; //set the text 
+			}else{
+				newItem.textContent = `( ) ${toDoList.list[i].textValue}`;
+			}
+		
+			itemEntryDiv.appendChild(toggleBox);
+			itemEntryDiv.appendChild(newItem);
+			itemList.appendChild(itemEntryDiv);
+		}
+	}
+}
 
 
 
