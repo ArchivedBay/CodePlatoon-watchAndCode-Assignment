@@ -6,13 +6,13 @@ body{
   width: 50%;
   background-color: #cecece;
 }
-#newItem{
+#newItem, #changeItem{
   border-bottom: 1px solid #333;
 }
 .itemList{
   text-align: left;
 }
-.toggleBoxStyle{
+.toggleBox{
   margin-right: 50px;
   
 }
@@ -24,4 +24,3 @@ body{
 .itemEntry{
   border-bottom: 1px solid #333;
 }
-
