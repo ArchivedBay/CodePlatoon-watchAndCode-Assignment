@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,32 +6,46 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>	
 <body>
+
 	<div class="container"> <!-- set overall shape of todo list. set min height with no max in css. -->
+
 		<div id="newItem"><!-- top section of todo list w/ form and select all button and 'add' button. -->
-			<button type="submit" id="toggleAllBtn" class="selectAllStyle">Select All</button>
-			<input type="text" placeholder="Add New Task" />
-			<button type="submit" id="addItemBtn" class="AddItemStyle">Add New Item</button>
-			<button type="submit" id="displayItemBtn" class="displayItemStyle">Display Items</button>
+      <div><input type="text" id="addInput" placeholder="Add New Task" /></div>
+			<button onclick="handlers.toggleAllHandler()" class="selectAllStyle">Select All</button>
+      <button onclick="handlers.displayItemsHandler()" class="displayItemStyle">Display Items</button>
+      <button onclick="handlers.addItemHandler()" class="AddItemStyle">Add New Item </button>
 		</div>
+
+    <div id="changeItem"><!-- top section of todo list w/ form and select all button and 'add' button. -->
+      <div>
+        <input type="text" id="indexValue" placeholder="Enter Index to change" />
+        <input type="text" id="newInputValue" placeholder="Enter new item" />
+      </div>
+      <button onclick="handlers.changeItemHandler()" class="selectAllStyle">Change Item</button>
+      <button onclick="handlers.removeItemHandler()" class="selectAllStyle">Delete Item</button>
+      <button onclick="handlers.toggleItemHandler()" class="selectAllStyle">Toggle Item</button>
+    </div>
+
 		<div class="itemList">
 		  <div class="itemEntry">
-  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <input type="checkbox" class="toggleBox" />
   		  <p class="entry">Add new to-do Item</p>
   		</div>
   		<div class="itemEntry">
-  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <input type="checkbox" class="toggleBox" />
   		  <p class="entry">Add new to-do Item</p>
   		</div>
   		<div class="itemEntry">
-  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <input type="checkbox" class="toggleBox" />
   		  <p class="entry">Add new to-do Item</p>
   		</div>
   		<div class="itemEntry">
-  		  <input type="checkbox" class="toggleBoxStyle" />
+  		  <input type="checkbox" class="toggleBox" />
   		  <p class="entry">Add new to-do Item</p>
   		</div>
-		</div>
-	</div>
+		</div><!-- end itemList -->
+
+	</div><!-- end container -->
 
 
 
