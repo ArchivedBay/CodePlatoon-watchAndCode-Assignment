@@ -1,16 +1,22 @@
-/*  V7 Reqs: 
-  There should be a 'display items' button and a 'toggle all' button in the app.
-  clicking the display button should call toDoList.displayItems()
-  clicking the toggle all button should run toDoList.toggleAll()
-  
-  NOTE from here on, changes will start being made to index.htm as well for the actual interface.
+/*  V8 Reqs: 
+  There should be a button for adding new items
+  There should be a button for deleting items
+  There should be a button for toggling items
+
+  Start refactoring to improve readability, i.e w/ event listeners
 */
 
+//store all of our inputs for use later.
+let inputValue = document.querySelector('#addInput'); //grab input from 'addInput' textbox
+let newInputValue = document.querySelector('#newInputValue');
+let indexValue = document.querySelector('#indexValue');
+let CheckBoxValues = document.querySelectorAll('.toggleBox');
 
+//create our main list object & its methods.
 let toDoList = {
   list: [],
   displayItems: function(){
-    if(this.list.length < 1){console.log('Your todo list is empty!');} //note, if you have it 'return' instead it causes issues.
+    if(this.list.length < 1){console.log('Your todo list is empty!');}
     else{
         for(let i = 0; i < this.list.length; i++){
           let status; //we only use status here so we can just assign it for this block.
@@ -24,14 +30,17 @@ let toDoList = {
     textValue: itemText,
     completed: false
    });
+   console.log(this.list);
    return this.list;
   },
   changeItem: function(n, newItemText){
    this.list[n].textValue = newItemText;
+   this.displayItems();
    return this.list;
   },
   removeItem: function(n){
     this.list.splice(n, 1);
+    this.displayItems();
     return this.list;
   },
   toggleCompleted: function(n){ //take an index as an argument
@@ -56,20 +65,36 @@ let toDoList = {
         this.list[c].completed = true; //otherwise make them all complete;
       }
     }
+    this.displayItems();
   }//end function
 };//end object
 
-// grab our buttons and store them in a variable then add a click listener to them. 
-let selectAllItems = document.getElementById('toggleAllBtn');
-let displayCurrentItems = document.getElementById('displayItemBtn');
+/*
+note, the below is mostly used if you ONLY need to deal with click events, 
+if you need more functionality consider using addEventListener instead. **/
 
-selectAllItems.addEventListener('click', function(){
-  	toDoList.toggleAll();
-});
-displayCurrentItems.addEventListener('click', function(){
-	toDoList.displayItems();
-});
-
+//create handlers for 'onclick' usage to avoid having to add event listeners manually and make it neater
+let handlers = { 
+	displayItemsHandler: function(){toDoList.displayItems();},
+	toggleAllHandler: function(){toDoList.toggleAll();},
+	addItemHandler: function(){
+		toDoList.addItem(inputValue.value); //pass input to addItem()
+		inputValue.value = ''; //reset the text box
+	},
+	changeItemHandler: function(){
+		toDoList.changeItem(indexValue.value, newInputValue.value);
+		indexValue.value = '';
+		newInputValue.value = '';
+	},
+	removeItemHandler: function(){
+		toDoList.removeItem(indexValue.value);
+		indexValue.value = '';
+	},
+	toggleItemHandler: function(){
+		toDoList.toggleCompleted(indexValue.value);
+		indexValue.value = '';
+	}
+};
 
 
 
