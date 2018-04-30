@@ -4,7 +4,7 @@
   Every li should show .completed
 */
 
-/store all of our inputs for use later.
+//store all of our inputs for use later.
 let inputValue = document.querySelector('#addInput'); //grab input from 'addInput' textbox
 let newInputValue = document.querySelector('#newInputValue');
 let indexValue = document.querySelector('#indexValue');
