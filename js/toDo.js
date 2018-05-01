@@ -1,9 +1,6 @@
-/*  V10 Reqs: 
-  There should be a way to create delete buttons
-  There should be a delete button with each item on the list
-  There should have an ID for each item that has the current position
-  Delete buttons should have access to this ID
-  Clicking the button should update both the visual side and the DOM.
+/*  V11 Reqs: 
+  toggleAll() method should use forEach()
+  visibleOutput.displayItems() should use forEach()
 */
 
 //store all of our inputs for use later.
@@ -20,15 +17,12 @@ let toDoList = {
     textValue: itemText,
     completed: false
    });
-   return this.list;
   },
   changeItem: function(n, newItemText){
    this.list[n].textValue = newItemText;
-   return this.list;
   },
   removeItem: function(n){ //take a current index as an input that gets passed into the splice method
     this.list.splice(n, 1);
-    return this.list;
   },
   toggleCompleted: function(n){ //take an index as an argument
     let toDoItem = this.list[n]; //set to a var for easier access below.
@@ -37,20 +31,12 @@ let toDoList = {
   toggleAll: function(){
     let count = 0;
     let length = this.list.length;
-    for(let a = 0; a < length; a++){
-      if(this.list[a].completed === true){ // if current item is complete, increase count
-        count++;
-      }
-    }
-    if(count === length){ // if they're all complete
-      for(let b = 0; b < length; b++){
-       this.toggleCompleted(b); // make them all incomplete
-      }
-    }else{
-      for(let c = 0; c < length; c++){
-        this.list[c].completed = true; //otherwise make them all complete;
-      }
-    } 
+    this.list.forEach(listItem => {listItem.completed === true ? count++ : null}); //if an item is completed, count++
+    this.list.forEach(listItem =>{ //for each item in the list
+    	count === length // if count === length
+    		? listItem.completed = false //if true, make them false
+    		: listItem.completed = true; // if false, make them true
+    });
   }//end function
 };//end object
 
@@ -78,7 +64,10 @@ let handlers = {
 		indexValue.value = '';
 		visibleOutput.displayItems();
 	},
-	toggleAllHandler: function(){toDoList.toggleAll();}
+	toggleAllHandler: function(){
+		toDoList.toggleAll();
+		visibleOutput.displayItems();
+	}
 };
 
 //create object for what the user sees
@@ -86,32 +75,29 @@ let visibleOutput = {
 	displayItems: function(){
 		itemList.innerHTML = ''; //important. by having this line it resets our list.
 
-		for(let i = 0; i < toDoList.list.length; i++){		 
+		toDoList.list.forEach(listItem => {
 			let itemEntryDiv = document.createElement('div'),
 				toggleBox = document.createElement('input'),
 				newItem = document.createElement('p');
 				
-
 			itemEntryDiv.classList.add('itemEntry');
 			toggleBox.classList.add('toggleBox');
 			newItem.classList.add('entry');
 			toggleBox.type = 'checkbox';
 
-			if(toDoList.list[i].completed === true){
-				newItem.textContent = `(x) ${toDoList.list[i].textValue}`;
-			}else{
-				newItem.textContent = `( ) ${toDoList.list[i].textValue}`;
-			}
-		
+			listItem.completed === true
+				? newItem.textContent = `(x) ${listItem.textValue}` //if true
+				: newItem.textContent = `( ) ${listItem.textValue}`; //if false
+
 			itemEntryDiv.appendChild(toggleBox);
 			itemEntryDiv.appendChild(newItem);
-			itemEntryDiv.appendChild(this.removeItems(i)); //add a delete button w/ an Id.
+			itemEntryDiv.appendChild(this.removeItems(toDoList.list.indexOf(listItem))); //add a delete button w/ an Id.
 			itemList.appendChild(itemEntryDiv);
-		}
+		});
 	},
 	removeItems: function(index){ // make a delete button object for organization purposes.
 		let deleteButton = document.createElement('button');
-		deleteButton.textContent = 'Delete';
+		deleteButton.textContent = 'Delete Item';
 		deleteButton.className = 'deleteButton';
 		deleteButton.id = index; // make an id for each button as its position.
 		return deleteButton; //return the button itself.
