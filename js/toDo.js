@@ -75,7 +75,7 @@ let visibleOutput = {
 	displayItems: function(){
 		itemList.innerHTML = ''; //important. by having this line it resets our list.
 
-		toDoList.list.forEach(listItem => {
+		toDoList.list.forEach(listItem => { //using an arrow function here prevents needing 'this' as second argument.
 			let itemEntryDiv = document.createElement('div'),
 				toggleBox = document.createElement('input'),
 				newItem = document.createElement('p');
