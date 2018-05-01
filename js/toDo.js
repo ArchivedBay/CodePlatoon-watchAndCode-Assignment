@@ -91,11 +91,11 @@ let visibleOutput = {
 
 			itemEntryDiv.appendChild(toggleBox);
 			itemEntryDiv.appendChild(newItem);
-			itemEntryDiv.appendChild(this.removeItems(toDoList.list.indexOf(listItem))); //add a delete button w/ an Id.
+			itemEntryDiv.appendChild(this.createDeleteButton(toDoList.list.indexOf(listItem))); //add a delete button w/ an Id.
 			itemList.appendChild(itemEntryDiv);
 		});
 	},
-	removeItems: function(index){ // make a delete button object for organization purposes.
+	createDeleteButton: function(index){ // make a delete button object for organization purposes.
 		let deleteButton = document.createElement('button');
 		deleteButton.textContent = 'Delete Item';
 		deleteButton.className = 'deleteButton';
