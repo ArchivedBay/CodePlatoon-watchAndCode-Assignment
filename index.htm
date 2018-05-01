@@ -1,18 +1,34 @@
-<!DOCTYPE>
+
+<!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>To Do List</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-
-
-
-
 </head>	
 <body>
-	
 
+	<div class="container"> 
 
+		<div id="newItem">
+      <div><input type="text" id="addInput" placeholder="Add New Task" /></div>
+			<button onclick="handlers.toggleAllHandler()" class="selectAllStyle">Select All</button>
+      <button onclick="handlers.addItemHandler()" class="AddItemStyle">Add New Item </button>
+		</div>
 
+    <div id="changeItem">
+      <div>
+        <input type="text" id="indexValue" placeholder="Enter Index to change" />
+        <input type="text" id="newInputValue" placeholder="Enter new item" />
+      </div>
+      <button onclick="handlers.changeItemHandler()" class="selectAllStyle">Change Item</button>
+      <button onclick="handlers.toggleItemHandler()" class="selectAllStyle">Toggle Item</button>
+    </div>
+
+		<div id="itemList">
+		 
+		</div><!-- end itemList -->
+
+	</div><!-- end container -->
 
 
 
