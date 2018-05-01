@@ -1,7 +1,9 @@
-/*  V9 Reqs: 
-  There should be an li for every item on your list
-  There should be a .textValue in every li
-  Every li should show .completed
+/*  V10 Reqs: 
+  There should be a way to create delete buttons
+  There should be a delete button with each item on the list
+  There should have an ID for each item that has the current position
+  Delete buttons should have access to this ID
+  Clicking the button should update both the visual side and the DOM.
 */
 
 //store all of our inputs for use later.
@@ -13,32 +15,19 @@ let CheckBoxValues = document.querySelectorAll('.toggleBox');
 //create our main list object & its methods.
 let toDoList = {
   list: [],
-  displayItems: function(){
-    if(this.list.length < 1){console.log('Your todo list is empty!');}
-    else{
-        for(let i = 0; i < this.list.length; i++){
-          let status; //we only use status here so we can just assign it for this block.
-          this.list[i].completed === true ? status = 'completed' : status = 'incomplete'; //I used ternary because condensed.
-          console.log(`${this.list[i].textValue}: ${status}`); 
-        }//end for loop
-    }//end else
-  }, //end function
   addItem: function(itemText){ //instead of pushing text, push an object instead
    this.list.push({
     textValue: itemText,
     completed: false
    });
-   console.log(this.list);
    return this.list;
   },
   changeItem: function(n, newItemText){
    this.list[n].textValue = newItemText;
-   this.displayItems();
    return this.list;
   },
-  removeItem: function(n){
+  removeItem: function(n){ //take a current index as an input that gets passed into the splice method
     this.list.splice(n, 1);
-    this.displayItems();
     return this.list;
   },
   toggleCompleted: function(n){ //take an index as an argument
@@ -61,15 +50,13 @@ let toDoList = {
       for(let c = 0; c < length; c++){
         this.list[c].completed = true; //otherwise make them all complete;
       }
-    }
-    visibleOutput.displayItems(toDoList.list.length-1);
+    } 
   }//end function
 };//end object
 
 
 //create handlers for 'onclick' usage to avoid having to add event listeners manually and make it neater
 let handlers = { 
-	displayItemsHandler: function(){visibleOutput.displayItems();},
 	addItemHandler: function(){
 		toDoList.addItem(inputValue.value); //pass input to addItem()
 		inputValue.value = '';
@@ -81,8 +68,8 @@ let handlers = {
 		newInputValue.value = '';
 		visibleOutput.displayItems();
 	},
-	removeItemHandler: function(){
-		toDoList.removeItem(indexValue.value);
+	removeItemHandler: function(index){ //take an index as an argument that = the current 'position'
+		toDoList.removeItem(index); //run the removeItem method with that position
 		indexValue.value = '';
 		visibleOutput.displayItems();
 	},
@@ -97,13 +84,13 @@ let handlers = {
 //create object for what the user sees
 let visibleOutput = {
 	displayItems: function(){
-		let itemList = document.querySelector('#itemList');
-		itemList.innerHTML = ''; // this is important! prevents doubling of items each cycle through loop
+		itemList.innerHTML = ''; //important. by having this line it resets our list.
 
 		for(let i = 0; i < toDoList.list.length; i++){		 
 			let itemEntryDiv = document.createElement('div'),
 				toggleBox = document.createElement('input'),
 				newItem = document.createElement('p');
+				
 
 			itemEntryDiv.classList.add('itemEntry');
 			toggleBox.classList.add('toggleBox');
@@ -111,17 +98,35 @@ let visibleOutput = {
 			toggleBox.type = 'checkbox';
 
 			if(toDoList.list[i].completed === true){
-				newItem.textContent = `(x) ${toDoList.list[i].textValue}`; //set the text 
+				newItem.textContent = `(x) ${toDoList.list[i].textValue}`;
 			}else{
 				newItem.textContent = `( ) ${toDoList.list[i].textValue}`;
 			}
 		
 			itemEntryDiv.appendChild(toggleBox);
 			itemEntryDiv.appendChild(newItem);
+			itemEntryDiv.appendChild(this.removeItems(i)); //add a delete button w/ an Id.
 			itemList.appendChild(itemEntryDiv);
 		}
+	},
+	removeItems: function(index){ // make a delete button object for organization purposes.
+		let deleteButton = document.createElement('button');
+		deleteButton.textContent = 'Delete';
+		deleteButton.className = 'deleteButton';
+		deleteButton.id = index; // make an id for each button as its position.
+		return deleteButton; //return the button itself.
+	},
+	setupEventListeners: function(){ //run this @ start so other methods work.
+		let itemList = document.querySelector('#itemList');
+		itemList.addEventListener('click', function(event){
+			let clickedItem = event.target; //get the element that was clicked
+			clickedItem.className === 'deleteButton' ? handlers.removeItemHandler(parseInt(clickedItem.id)) : null;
+			// if true, delete clicked item. If not, do nothing.
+		});
 	}
 }
+
+visibleOutput.setupEventListeners(); // setup our event listeners @ start
 
 
 
