@@ -1,5 +1,5 @@
 # toDoList
-### this project is a toDoList since a majority of web applications are just more complex versions of a to do list.
+### this project is a toDoList
 
 ### should have certain features:
  - the ability to add a new to-do,
